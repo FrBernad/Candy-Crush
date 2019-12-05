@@ -20,7 +20,7 @@ public class Level3 extends BonusLevel {
     public Level3() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         super();
         setGenerator(TimedBombCandyGeneratorCell.class);
-        condition="Movements Left: ";
+        condition = "Movements Left: ";
     }
 
     public void add(Candy candy) {
@@ -28,13 +28,19 @@ public class Level3 extends BonusLevel {
     }
 
     @Override
-    public boolean canUpdate() {
-        return true;
+    public void update() {
+        checkCandies();
+        if (firstPass) {
+            firstPass = false;
+            ((Level3State) state()).updateState();
+            if (specialCandies.isEmpty())
+                ((TimedBombCandyGeneratorCell) generator).reset();
+        }
+        setMinMovementsLeft();
     }
 
     private void checkCandies() {
         Iterator<NumberedCandy> it = specialCandies.iterator();
-
         while (it.hasNext()) {
             NumberedCandy candy = it.next();
             if (!candy.stillUp()) {
@@ -44,8 +50,9 @@ public class Level3 extends BonusLevel {
                 }
             } else {
                 if (started) {
-                    if (((TimedBombCandy) candy).countDownMovements() == 0)
+                    if (((TimedBombCandy) candy).countDownMovements() == 0) {
                         exploded = true;
+                    }
                 }
             }
         }
@@ -63,20 +70,6 @@ public class Level3 extends BonusLevel {
         }
     }
 
-    @Override
-    public void update() {
-        System.out.println("VECTOR DE CANDIES BEFORE" + specialCandies);
-        checkCandies();
-        if (firstPass) {
-            firstPass = false;
-            ((Level3State) state()).updateState();
-            if (specialCandies.isEmpty())
-                ((TimedBombCandyGeneratorCell) generator).reset();
-        }
-        setMinMovementsLeft();
-        System.out.println("VECTOR DE CANDIES AFTER" + specialCandies);
-    }
-
     public int minMovementsLeft() {
         return minMovementsLeft;
     }
@@ -86,55 +79,55 @@ public class Level3 extends BonusLevel {
         return new Level3State(REQUIRED_SCORE);
     }
 
-        private class Level3State extends GameState {
+    private class Level3State extends GameState {
 
-            private long requiredScore;
-            private int minMovementLeft;
-            private Timer timer = new Timer();
+        private long requiredScore;
+        private int minMovementLeft;
+        private Timer timer = new Timer();
 
-            public Level3State(long requiredScore) {
-                this.requiredScore = requiredScore;
-            }
-
-            public void updateState() {
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        Platform.runLater(new TimerTask() {
-                            @Override
-                            public void run() {
-                                updateMovementsLeft();
-                                gameOver();
-                            }
-                        });
-                    }
-                }, 0, 1000);
-            }
-
-            public boolean gameOver() {
-                return playerWon() || bombExploded();
-            }
-
-            public void updateMovementsLeft() {
-                minMovementLeft = minMovementsLeft();
-            }
-
-            //lo llama el reloj del front
-            @Override
-            public Map<String, String> getInfo() {
-                Map<String, String> generalInfo = new HashMap<>();
-                generalInfo.put("score", String.valueOf(getScore()));
-                generalInfo.put("condition", String.valueOf(minMovementLeft));
-                return generalInfo;
-            }
-
-            public boolean playerWon() {
-                return getScore() > requiredScore;
-            }
-
-            public boolean bombExploded() {
-                return exploded;
-            }
-
+        public Level3State(long requiredScore) {
+            this.requiredScore = requiredScore;
         }
+
+        public void updateState() {
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(new TimerTask() {
+                        @Override
+                        public void run() {
+                            updateMovementsLeft();
+                            gameOver();
+                        }
+                    });
+                }
+            }, 0, 1000);
+        }
+
+        public boolean gameOver() {
+            return playerWon() || bombExploded();
+        }
+
+        public void updateMovementsLeft() {
+            minMovementLeft = minMovementsLeft();
+        }
+
+        //lo llama el reloj del front
+        @Override
+        public Map<String, String> getInfo() {
+            Map<String, String> generalInfo = new HashMap<>();
+            generalInfo.put("score", String.valueOf(getScore()));
+            generalInfo.put("condition", String.valueOf(minMovementLeft));
+            return generalInfo;
+        }
+
+        public boolean playerWon() {
+            return getScore() > requiredScore || specialCandies.isEmpty();
+        }
+
+        public boolean bombExploded() {
+            return exploded;
+        }
+
+    }
 }

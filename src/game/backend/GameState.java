@@ -7,35 +7,35 @@ import java.util.*;
 import static java.lang.String.valueOf;
 
 public abstract class GameState {
-	
-	private long score = 0;
-	private int moves = 0;
 
-	public void addScore(long value) {
-		this.score = this.score + value;
-	}
+    private long score = 0;
+    private int moves = 0;
 
-	public Map<String,String> getInfo() {
-		Map<String,String> generalInfo= new HashMap<>();
-		generalInfo.put("score",valueOf(getScore()));
-		generalInfo.put("condition","");
-		return generalInfo;
-	}
+    public void addScore(long value) {
+        this.score = this.score + value;
+    }
 
-	public long getScore(){
-		return score;
-	}
-	
-	public void addMove() {
-		moves++;
-	}
-	
-	public int getMoves() {
-		return moves;
-	}
+    public Map<String, String> getInfo() {
+        Map<String, String> generalInfo = new HashMap<>();
+        generalInfo.put("score", valueOf(getScore()));
+        generalInfo.put("condition", "");
+        return generalInfo;
+    }
 
-	public abstract boolean gameOver();
-	
-	public abstract boolean playerWon();
+    public long getScore() {
+        return score;
+    }
+
+    public void addMove() {
+        moves++;
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public abstract boolean gameOver();
+
+    public abstract boolean playerWon();
 
 }

@@ -26,21 +26,20 @@ public class TimedCandyGeneratorCell extends CandyGeneratorCell {
 
     @Override
     public Element getContent() {
-        int i = (int) (Math.random() * CandyColor.values().length);
+        int colour = (int) (Math.random() * CandyColor.values().length);
 
         if (canThrow()) {
-            int extraTime = (int) (Math.random() * MAX_RANGE) + MIN_RANGE;
-            double j = Math.random();
-
-            if (j < THRESHOLD) {
-                Candy aux = new TimeCandy(CandyColor.values()[i], extraTime);
+            double specialCandyChance = Math.random();
+            if (specialCandyChance < THRESHOLD) {
+                int extraTime = (int) (Math.random() * MAX_RANGE) + MIN_RANGE;
+                Candy aux = new TimeCandy(CandyColor.values()[colour], extraTime);
                 ((Level2) grid).add(aux);
                 candiesToThrow--;
                 return aux;
             }
         }
 
-        return new Candy(CandyColor.values()[i]);
+        return new Candy(CandyColor.values()[colour]);
     }
 
     public void reset() {

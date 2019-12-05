@@ -27,7 +27,7 @@ public class GameApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage=primaryStage;
+        this.primaryStage = primaryStage;
         primaryStage.setTitle("CandyCrush");
 
         Button level1 = new Button();
@@ -59,8 +59,7 @@ public class GameApp extends Application {
 
     }
 
-    EventHandler<ActionEvent> provider(Class<? extends Level> levelClass)
-    {
+    EventHandler<ActionEvent> provider(Class<? extends Level> levelClass) {
         return new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

@@ -44,14 +44,13 @@ public class CandyFrame extends VBox {
         getChildren().add(boardPanel);
         scorePanel = new InfoPanel();
         getChildren().add(scorePanel);
-        timePanel= new InfoPanel();
+        timePanel = new InfoPanel();
         getChildren().add(timePanel);
         game.initGame();
         gameLevel = (Level) game.getGrid();
 
         if (gameLevel.canUpdate()) {
             gameLevel.update();
-            System.out.println("FIRST UPDATE!");
         }
 
         GameListener listener;
@@ -91,19 +90,19 @@ public class CandyFrame extends VBox {
         listener.gridUpdated();
 
         Timer timer = new Timer();
-		TimerTask task = new TimerTask() {
-			@Override
-			public void run() {
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						updatePanels(timer);
-					}
-				});
-			}
-		};
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        updatePanels(timer);
+                    }
+                });
+            }
+        };
 
-		timer.scheduleAtFixedRate(task,0,1000);
+        timer.scheduleAtFixedRate(task, 0, 1000);
 
 
         addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -136,29 +135,30 @@ public class CandyFrame extends VBox {
     }
 
     private void updatePanels(Timer timer) {
-        Map<String,String> info=game.getInformation();
+        Map<String, String> info = game.getInformation();
         scorePanel.updateMessage("Score: " + info.get("score"));
         timePanel.updateMessage(Level.condition + info.get("condition"));
 
         if (game().isFinished()) {
             if (game().playerWon()) {
-               finishGame( String.valueOf(game.getScore()),"Player Won!",timer);
+                finishGame(String.valueOf(game.getScore()), "Player Won!", timer);
             } else {
-                finishGame( String.valueOf(game.getScore()),"Player Lost!",timer);
+                finishGame(String.valueOf(game.getScore()), "Player Lost!", timer);
             }
         }
 
     }
-        public void finishGame(String score, String message,Timer timer){
-		timer.cancel();
-		Alert alert = new Alert(Alert.AlertType.WARNING);
-		alert.setTitle("Candy Crush 2.0");
-		alert.setHeaderText(message);
-		alert.setContentText("Your score was: " + score);
-		ButtonType buttonTypeCancel = new ButtonType("Exit");
-		alert.getButtonTypes().setAll(buttonTypeCancel);
-		alert.showAndWait();
-		Platform.exit();
-	}
+
+    public void finishGame(String score, String message, Timer timer) {
+        timer.cancel();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Candy Crush 2.0");
+        alert.setHeaderText(message);
+        alert.setContentText("Your score was: " + score);
+        ButtonType buttonTypeCancel = new ButtonType("Exit");
+        alert.getButtonTypes().setAll(buttonTypeCancel);
+        alert.showAndWait();
+        Platform.exit();
+    }
 
 }

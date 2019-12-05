@@ -6,7 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+
 import java.util.Optional;
+
 import game.backend.CandyGame;
 import game.backend.level.Level1;
 import game.backend.level.Level2;
@@ -15,19 +17,17 @@ import javafx.stage.Stage;
 
 public class AppMenu extends MenuBar {
 
-    protected Stage level;
-
-    private EventHandler<ActionEvent> provider(Class<? extends Level> levelClass)
-    {
+    private EventHandler<ActionEvent> provider(Class<? extends Level> levelClass) {
         return new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 CandyGame game = new CandyGame(levelClass);
                 CandyFrame frame = new CandyFrame(game);
                 Scene scene = new Scene(frame);
-                level.setResizable(false);
-                level.setScene(scene);
-                level.show();
+                Stage stage=new Stage();
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.show();
             }
         };
     }

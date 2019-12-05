@@ -1,28 +1,20 @@
 package game.backend.level;
-
 import game.backend.Grid;
 import game.backend.cell.Cell;
 import game.backend.element.Wall;
-
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class Level extends Grid {
 
     public static String condition;
     protected Cell wallCell;
-	protected Cell generator;
+    protected Cell generator;
 
     public void setGenerator(Class<? extends Cell> generator) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-        this.generator=generator.getConstructor(Grid.class).newInstance(this);
+        this.generator = generator.getConstructor(Grid.class).newInstance(this);
     }
 
-    public String getCondition()
-    {
-        return condition;
-    }
-
-    public boolean canUpdate()
-    {
+    public boolean canUpdate() {
         return false;
     }
 
@@ -62,14 +54,5 @@ public abstract class Level extends Grid {
                 g()[i][j].setAround(g()[i - 1][j], g()[i + 1][j], g()[i][j - 1], g()[i][j + 1]);
             }
         }
-    }
-
-    @Override
-    public boolean tryMove(int i1, int j1, int i2, int j2) {
-        boolean ret;
-        if (ret = super.tryMove(i1, j1, i2, j2)) {
-            state().addMove();
-        }
-        return ret;
     }
 }

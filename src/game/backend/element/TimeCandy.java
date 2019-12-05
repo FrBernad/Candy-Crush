@@ -1,9 +1,9 @@
 package game.backend.element;
 
-public class TimeCandy extends NumberedCandy{
+public class TimeCandy extends NumberedCandy {
     protected int extraTime;
 
-    public TimeCandy(CandyColor color,int extraTime) {
+    public TimeCandy(CandyColor color, int extraTime) {
         super(color);
         this.extraTime = extraTime;
     }

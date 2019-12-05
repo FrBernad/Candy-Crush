@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class BonusLevel extends Level {
 
-    protected boolean started=false;
+    protected boolean started = false;
     protected boolean firstPass = true;
 
     protected List<NumberedCandy> specialCandies = new ArrayList<>();
@@ -31,5 +31,10 @@ public abstract class BonusLevel extends Level {
             swapContent(i1, j1, i2, j2);
             return false;
         }
+    }
+
+    @Override
+    public boolean canUpdate() {
+        return true;
     }
 }

@@ -7,18 +7,18 @@ import javafx.scene.control.Label;
 
 public class InfoPanel extends BorderPane {
 
-	private Label label;
+    private Label label;
 
-	public InfoPanel() {
-		setStyle("-fx-background-color: #5490ff");
-		label = new Label("");
-		label.setAlignment(Pos.CENTER);
-		label.setStyle("-fx-font-size: 24");
-		setCenter(label);
-	}
+    public InfoPanel() {
+        setStyle("-fx-background-color: #5490ff");
+        label = new Label("");
+        label.setAlignment(Pos.CENTER);
+        label.setStyle("-fx-font-size: 24");
+        setCenter(label);
+    }
 
-	public void updateMessage(String text) {
-		label.setText(text);
-	}
+    public void updateMessage(String text) {
+        label.setText(text);
+    }
 
 }
