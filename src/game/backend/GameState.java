@@ -18,6 +18,7 @@ public abstract class GameState {
 	public Map<String,String> getInfo() {
 		Map<String,String> generalInfo= new HashMap<>();
 		generalInfo.put("score",valueOf(getScore()));
+		generalInfo.put("condition","");
 		return generalInfo;
 	}
 

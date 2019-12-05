@@ -137,8 +137,8 @@ public class CandyFrame extends VBox {
 
     private void updatePanels(Timer timer) {
         Map<String,String> info=game.getInformation();
-        scorePanel.updateMessage(info.get("score"));
-        timePanel.updateMessage(info.get("condition"));
+        scorePanel.updateMessage("Score: " + info.get("score"));
+        timePanel.updateMessage(Level.condition + info.get("condition"));
 
         if (game().isFinished()) {
             if (game().playerWon()) {

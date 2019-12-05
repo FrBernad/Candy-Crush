@@ -13,6 +13,7 @@ public class Level1 extends Level {
 	public Level1() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		super();
 		setGenerator(CandyGeneratorCell.class);
+		condition="";
 	}
 
 	@Override

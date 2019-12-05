@@ -8,11 +8,17 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class Level extends Grid {
 
+    public static String condition;
     protected Cell wallCell;
 	protected Cell generator;
 
     public void setGenerator(Class<? extends Cell> generator) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         this.generator=generator.getConstructor(Grid.class).newInstance(this);
+    }
+
+    public String getCondition()
+    {
+        return condition;
     }
 
     public boolean canUpdate()

@@ -17,8 +17,4 @@ public class TimeCandy extends NumberedCandy{
         return extraTime;
     }
 
-    @Override
-    public String toString() {
-        return "TimeCandy";
-    }
 }
