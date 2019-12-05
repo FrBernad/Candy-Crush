@@ -16,6 +16,7 @@ public class Level3 extends BonusLevel {
     private static int MIN_MOVEMENTS = 15;
     private boolean exploded = false;
     private int minMovementsLeft = MIN_MOVEMENTS;
+    private String movementsMessage;
 
     public Level3() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         super();
@@ -37,6 +38,10 @@ public class Level3 extends BonusLevel {
                 ((TimedBombCandyGeneratorCell) generator).reset();
         }
         setMinMovementsLeft();
+
+        if (specialCandies.isEmpty()) {
+            movementsMessage = "-";
+        }
     }
 
     private void checkCandies() {
@@ -47,6 +52,7 @@ public class Level3 extends BonusLevel {
                 it.remove();
                 if (((TimedBombCandy) candy).getMovementsLeft() == minMovementsLeft) {
                     minMovementsLeft = MIN_MOVEMENTS;
+                    movementsMessage = String.valueOf(minMovementsLeft);
                 }
             } else {
                 if (started) {
@@ -65,8 +71,10 @@ public class Level3 extends BonusLevel {
         while (it.hasNext()) {
             NumberedCandy candy = it.next();
             movementsLeft = ((TimedBombCandy) candy).getMovementsLeft();
-            if (movementsLeft < minMovementsLeft)
+            if (movementsLeft < minMovementsLeft) {
                 minMovementsLeft = movementsLeft;
+                movementsMessage = String.valueOf(minMovementsLeft);
+            }
         }
     }
 
@@ -117,12 +125,12 @@ public class Level3 extends BonusLevel {
         public Map<String, String> getInfo() {
             Map<String, String> generalInfo = new HashMap<>();
             generalInfo.put("score", String.valueOf(getScore()));
-            generalInfo.put("condition", String.valueOf(minMovementLeft));
+            generalInfo.put("condition", movementsMessage);
             return generalInfo;
         }
 
         public boolean playerWon() {
-            return getScore() > requiredScore || specialCandies.isEmpty();
+            return getScore() > requiredScore;
         }
 
         public boolean bombExploded() {

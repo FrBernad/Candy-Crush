@@ -1,6 +1,7 @@
 package game.frontend;
 
 import game.backend.CandyGame;
+import game.backend.level.Level;
 import game.backend.level.Level1;
 import game.backend.level.Level2;
 import game.backend.level.Level3;
