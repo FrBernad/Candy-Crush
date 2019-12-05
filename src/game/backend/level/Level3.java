@@ -19,9 +19,7 @@ public class Level3 extends Level {
     private boolean started = false;
     private boolean firstPass = true;
     private int minMovementsLeft = MIN_MOVEMENTS;
-
-    protected List<NumberedCandy> timeCandies = new ArrayList<>();
-
+    protected List<NumberedCandy> timedBombCandies = new ArrayList<>();
 
     public Level3() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         super();
@@ -29,7 +27,7 @@ public class Level3 extends Level {
     }
 
     public void add(Candy candy) {
-        timeCandies.add((NumberedCandy) candy);
+        timedBombCandies.add((NumberedCandy) candy);
     }
 
     @Override
@@ -38,14 +36,14 @@ public class Level3 extends Level {
     }
 
     private void checkCandies() {
-        Iterator<NumberedCandy> it = timeCandies.iterator();
+        Iterator<NumberedCandy> it = timedBombCandies.iterator();
 
         while (it.hasNext()) {
             NumberedCandy candy = it.next();
             if (!candy.stillUp()) {
                 it.remove();
-                if(((TimedBombCandy)candy).getMovementsLeft()==minMovementsLeft){
-                    minMovementsLeft=MIN_MOVEMENTS;
+                if (((TimedBombCandy) candy).getMovementsLeft() == minMovementsLeft) {
+                    minMovementsLeft = MIN_MOVEMENTS;
                 }
             } else {
                 if (started) {
@@ -57,7 +55,7 @@ public class Level3 extends Level {
     }
 
     private void setMinMovementsLeft() {
-        Iterator<NumberedCandy> it = timeCandies.iterator();
+        Iterator<NumberedCandy> it = timedBombCandies.iterator();
         int movementsLeft;
 
         while (it.hasNext()) {
@@ -69,20 +67,19 @@ public class Level3 extends Level {
     }
 
     public void update() {
-        System.out.println("VECTOR DE CANDIES BEFORE" + timeCandies);
+        System.out.println("VECTOR DE CANDIES BEFORE" + timedBombCandies);
 
         checkCandies();
         if (firstPass) {
             firstPass = false;
             ((Level3State) state()).updateState();
-            if (timeCandies.isEmpty())
+            if (timedBombCandies.isEmpty())
                 ((TimedBombCandyGeneratorCell) generator).reset();
         }
         setMinMovementsLeft();
 
-        System.out.println("VECTOR DE CANDIES AFTER" + timeCandies);
+        System.out.println("VECTOR DE CANDIES AFTER" + timedBombCandies);
     }
-
 
     @Override
     public boolean tryMove(int i1, int j1, int i2, int j2) {
@@ -110,7 +107,6 @@ public class Level3 extends Level {
     public int minMovementsLeft() {
         return minMovementsLeft;
     }
-
 
     private class Level3State extends GameState {
 

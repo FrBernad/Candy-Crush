@@ -6,8 +6,10 @@ import game.backend.level.Level3;
 
 public class TimedBombCandyGeneratorCell extends CandyGeneratorCell {
 
-        private static final double THRESHOLD=0.1;
-        private static int MAX_CANDIES = 10;
+        private final double THRESHOLD=0.1;
+        private final int MAX_CANDIES = 10;
+        private final int MAX_RANGE = 10;
+        private final int MIN_RANGE = 5;
         private int candiesToThrow = MAX_CANDIES;
 
         public TimedBombCandyGeneratorCell(Grid grid) {
@@ -21,7 +23,7 @@ public class TimedBombCandyGeneratorCell extends CandyGeneratorCell {
         @Override
         public Element getContent() {
             int i = (int) (Math.random() * CandyColor.values().length);
-            int movements = (int) (Math.random() * 10) + 5;
+            int movements = (int) (Math.random() * MAX_RANGE) + MIN_RANGE;
             double j = Math.random();
 
             if(canThrow()){

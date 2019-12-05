@@ -51,7 +51,7 @@ public class CandyFrame extends VBox {
 
         if (gameLevel.canUpdate()) {
             gameLevel.update();
-            System.out.println("UPDATED!");
+            System.out.println("FIRST UPDATE!");
         }
 
         GameListener listener;
