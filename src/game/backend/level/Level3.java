@@ -12,23 +12,31 @@ import java.util.*;
 
 public class Level3 extends BonusLevel {
 
-    private static int REQUIRED_SCORE = 5000;
     private final String CONDITION_TAG = "Movements Left: ";
+    private static int REQUIRED_SCORE = 5000;
     private static int MIN_MOVEMENTS = 15;
-    private boolean exploded = false;
     private int minMovementsLeft = MIN_MOVEMENTS;
     private String movementsMessage;
+    private boolean exploded = false;
 
+    
+    // El constructor guarda el score necesario para ganar en la clase ancestro "Level"
+    // para el posterior acceso del front a dicha información, así como la condición
+    // que estipula el comportamiento del nivel (en este caso, límite de movimientos).
     public Level3() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        super();
+        super(REQUIRED_SCORE);
         setGenerator(TimedBombCandyGeneratorCell.class);
         condition = CONDITION_TAG;
     }
 
+    // La clase padre "BonusLevel" tiene el método specialCandies(...) que guarda
+    // en una lista dichos caramelos encontrados.
     public void add(Candy candy) {
         specialCandies.add((TimedBombCandy) candy);
     }
 
+    // Gracias a este método puede llenarse la grilla, corroborando que no inicie sin
+    // caramelos especiales. Además, setea los mensajes que corresponden a dicho estado.
     @Override
     public void update() {
         checkCandies();
@@ -36,18 +44,19 @@ public class Level3 extends BonusLevel {
             firstPass = false;
             ((Level3State) state()).updateState();
             if (specialCandies.isEmpty())
-                ((TimedBombCandyGeneratorCell) generator).reset();
+                ((TimedBombCandyGeneratorCell)generator).reset();
         }
         setMinMovementsLeft();
-
         if (specialCandies.isEmpty()) {
             movementsMessage = "";
-            condition = "No special candies";
+            condition = "No more time bombs in sight";
         } else {
             condition = CONDITION_TAG;
         }
     }
-
+    
+    // Itera sobre la lista de TimedBombCandies para verificar si se rompieron
+    // o si el tiempo de los mismos llego a cero (es decir, explotaron).
     private void checkCandies() {
         Iterator<NumberedCandy> it = specialCandies.iterator();
         while (it.hasNext()) {
@@ -68,10 +77,11 @@ public class Level3 extends BonusLevel {
         }
     }
 
+    // Actualiza el mínimo de movimientos que le quedan al jugador antes de que explote
+    // el TimedBombCandy con menor "tiempo" restante.
     private void setMinMovementsLeft() {
         Iterator<NumberedCandy> it = specialCandies.iterator();
         int movementsLeft;
-
         while (it.hasNext()) {
             NumberedCandy candy = it.next();
             movementsLeft = ((TimedBombCandy) candy).getMovementsLeft();
@@ -91,10 +101,10 @@ public class Level3 extends BonusLevel {
         return new Level3State(REQUIRED_SCORE);
     }
 
+    // Actualiza el estado del nivel actual mientras se ejecuta el juego.
     private class Level3State extends GameState {
 
         private long requiredScore;
-        private int minMovementLeft;
         private Timer timer = new Timer();
 
         public Level3State(long requiredScore) {
@@ -121,10 +131,10 @@ public class Level3 extends BonusLevel {
         }
 
         public void updateMovementsLeft() {
-            minMovementLeft = minMovementsLeft();
+            minMovementsLeft = minMovementsLeft();
         }
 
-        //lo llama el reloj del front
+        // Lo llama el reloj del frontend para actualizar los paneles de información.  
         @Override
         public Map<String, String> getInfo() {
             Map<String, String> generalInfo = new HashMap<>();
