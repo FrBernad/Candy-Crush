@@ -3,8 +3,6 @@ package game.backend;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 import game.backend.level.Level;
-
-import java.util.Iterator;
 import java.util.Map;
 
 //ESTA CLASE EJECUTA EL NIVEL
