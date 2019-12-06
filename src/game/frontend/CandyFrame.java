@@ -33,17 +33,16 @@ public class CandyFrame extends VBox {
     private Level gameLevel;
     private Stage primaryStage;
 
+    // Se añadieron paneles para mostrar la información de la jugada actual.
     public CandyFrame(CandyGame game, Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.game = game;
         getChildren().add(new AppMenu(primaryStage));
         images = new ImageManager();
         boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE);
-        getChildren().add(boardPanel);
         scorePanel = new InfoPanel("/images/Up.png");
-        getChildren().add(scorePanel);
         timePanel = new InfoPanel("/images/Down.png");
-        getChildren().add(timePanel);
+        getChildren().addAll(boardPanel, scorePanel, timePanel);
         game.initGame();
         gameLevel = (Level) game.getGrid();
         if (gameLevel.canUpdate()) {
@@ -128,10 +127,11 @@ public class CandyFrame extends VBox {
         double j = y / CELL_SIZE;
         return (i >= 0 && i < game.getSize() && j >= 0 && j < game.getSize()) ? new Point2D(j, i) : null;
     }
-
+    
+    // Método encargado de actualizar la información que obtiene del backend.
     private void updatePanels(Timer timer) {
         Map<String, String> info = game.getInformation();
-        scorePanel.updateMessage("Score: " + info.get("score"));
+        scorePanel.updateMessage("Score: " + info.get("score") + "/" + gameLevel.getMaxScore());
         timePanel.updateMessage(gameLevel.getCondition() + info.get("condition"));
 
         if (game().isFinished()) {
@@ -144,6 +144,8 @@ public class CandyFrame extends VBox {
 
     }
 
+    // Ventana que se abre cuando la jugada termina, ganándola o perdiéndola.
+    // Permite volver al menú de selección de niveles o salir del juego.
     public void finishGame(String score, String message, Timer timer) {
         timer.cancel();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -163,5 +165,4 @@ public class CandyFrame extends VBox {
             Platform.exit();
         }
     }
-
 }
