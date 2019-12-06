@@ -51,9 +51,9 @@ public class CandyFrame extends VBox {
         images = new ImageManager();
         boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE);
         getChildren().add(boardPanel);
-        scorePanel = new InfoPanel();
+        scorePanel = new InfoPanel("/images/Up.png");
         getChildren().add(scorePanel);
-        timePanel = new InfoPanel();
+        timePanel = new InfoPanel("/images/Down.png");
         getChildren().add(timePanel);
         game.initGame();
         gameLevel = (Level) game.getGrid();
@@ -145,7 +145,7 @@ public class CandyFrame extends VBox {
     private void updatePanels(Timer timer) {
         Map<String, String> info = game.getInformation();
         scorePanel.updateMessage("Score: " + info.get("score"));
-        timePanel.updateMessage(Level.condition + info.get("condition"));
+        timePanel.updateMessage(gameLevel.getCondition() + info.get("condition"));
 
         if (game().isFinished()) {
             if (game().playerWon()) {

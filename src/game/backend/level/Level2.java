@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Level2 extends BonusLevel {
 
-    private static long TIME_LEFT = 3;
+    private static long TIME_LEFT = 50;
     private int REQUIRED_SCORE = 5000;
 
     public Level2() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {

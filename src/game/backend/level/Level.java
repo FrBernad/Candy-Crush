@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class Level extends Grid {
 
-    public static String condition;
+    protected String condition;
     protected Cell wallCell;
     protected Cell generator;
 
@@ -19,6 +19,10 @@ public abstract class Level extends Grid {
     }
 
     public abstract void update();
+
+    public String getCondition() {
+        return condition;
+    }
 
     @Override
     protected void fillCells() {
@@ -55,4 +59,5 @@ public abstract class Level extends Grid {
             }
         }
     }
+
 }

@@ -13,6 +13,7 @@ import java.util.*;
 public class Level3 extends BonusLevel {
 
     private static int REQUIRED_SCORE = 5000;
+    private final String CONDITION_TAG = "Movements Left: ";
     private static int MIN_MOVEMENTS = 15;
     private boolean exploded = false;
     private int minMovementsLeft = MIN_MOVEMENTS;
@@ -21,7 +22,7 @@ public class Level3 extends BonusLevel {
     public Level3() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         super();
         setGenerator(TimedBombCandyGeneratorCell.class);
-        condition = "Movements Left: ";
+        condition = CONDITION_TAG;
     }
 
     public void add(Candy candy) {
@@ -40,7 +41,10 @@ public class Level3 extends BonusLevel {
         setMinMovementsLeft();
 
         if (specialCandies.isEmpty()) {
-            movementsMessage = "-";
+            movementsMessage = "";
+            condition = "No special candies";
+        } else {
+            condition = CONDITION_TAG;
         }
     }
 
