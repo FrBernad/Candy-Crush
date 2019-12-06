@@ -4,7 +4,6 @@ import game.backend.Grid;
 import game.backend.element.Element;
 import game.backend.element.Nothing;
 import game.backend.element.NumberedCandy;
-import game.backend.element.TimeCandy;
 import game.backend.move.Direction;
 
 public class Cell {
