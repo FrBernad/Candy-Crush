@@ -71,9 +71,6 @@ public class CandyGame implements GameListener {
 
     public Map<String, String> getInformation() {
         return state.getInfo();
-    }//AGREGADO
+    }//Devuelve informacion actual del juego
 
-    public Class<? extends Level> getLevelClass() {
-        return levelClass;
-    }
 }

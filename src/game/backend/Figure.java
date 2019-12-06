@@ -88,10 +88,6 @@ public enum Figure {
     }
 
 
-    //se fija si el caramelo tiene q ser reemplazado cuando se explota
-    // si tengo 4 verdes tiene q ponerse uno de 4 de color verde
-    // en cambio con la boma tiene solo q ponerse la bomba
-    // si es un combo triple no tiene q ponerse nada
     public Element generateReplacement(CandyColor color) {
         try {
             Element e;
@@ -100,7 +96,7 @@ public enum Figure {
                 ((Candy) e).setColor(color);
             }
             return e;
-        } catch (Exception e) {//ESTO ESTA PQ SI ES COMBO TRIPLE EL REPLACE VA A SER NULL Y VA A PEDIR SET COLOR DE NULL ERROR
+        } catch (Exception e) {
         }
         return null;
     }

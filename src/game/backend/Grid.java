@@ -81,7 +81,7 @@ public abstract class Grid {
 
     public void setContent(int i, int j, Element e) {
         g[i][j].setContent(e);
-    }//PONE LO QUE DEBERIA IR LUEGO E UNA EXPLOSION
+    }
 
     public boolean tryMove(int i1, int j1, int i2, int j2) {
         Move move = moveMaker.getMove(i1, j1, i2, j2);

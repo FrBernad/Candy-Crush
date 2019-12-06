@@ -18,7 +18,7 @@ public class FigureDetector {
         int acum = readCheckpoints(i, j);
         if (acum > 0) {
             for (Figure f : Figure.values()) {
-                if (f.matches(acum)) {//CHECKEA Q SE FORME ALGUN COMBO
+                if (f.matches(acum)) {
                     return f;
                 }
             }
@@ -29,12 +29,12 @@ public class FigureDetector {
     private int readCheckpoints(int i, int j) {
         Element curr = grid.get(i, j);
         int acum = 0;
-        for (Checkpoint cp : Checkpoint.values()) { //POSICIONES POSIBLES
-            int newI = i + cp.getI();//GUARDA EL VALOR DE EL NUEVO I
-            int newJ = j + cp.getJ();//GUARDA EL VALOR DE EL NUEVO J
-            if (newI >= 0 && newI < Grid.SIZE && newJ >= 0 && newJ < Grid.SIZE) {//CHECKEA QUE NO SE PASE DE LOS MARGENES
-                if (curr.equals(grid.get(newI, newJ))) {//CHECKEA Q TENGA EL MISMO CARAMELO ALREDEDOR
-                    acum += cp.getValue();//SUMA PARA SABER LUEGO EN EL TOTAL DE ACUM Q COMBO SE FORMA
+        for (Checkpoint cp : Checkpoint.values()) {
+            int newI = i + cp.getI();
+            int newJ = j + cp.getJ();
+            if (newI >= 0 && newI < Grid.SIZE && newJ >= 0 && newJ < Grid.SIZE) {
+                if (curr.equals(grid.get(newI, newJ))) {
+                    acum += cp.getValue();
                 }
             }
         }
@@ -45,10 +45,10 @@ public class FigureDetector {
         CandyColor color = ((Candy) grid.get(i, j)).getColor();
         grid.clearContent(i, j);
         if (f.hasReplacement()) {
-            grid.setContent(i, j, f.generateReplacement(color));//EN CASO DE TENER REEMPLAZO LO PONE
+            grid.setContent(i, j, f.generateReplacement(color));
         }
         for (Point p : f.getPoints()) {
-            grid.clearContent(i + p.x, j + p.y);//ELIMINA LOS QUE ESTAN EN CONTACTO CON EL CARAMELO QUE REACCIONA
+            grid.clearContent(i + p.x, j + p.y);
         }
     }
 

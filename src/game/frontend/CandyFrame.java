@@ -85,6 +85,7 @@ public class CandyFrame extends VBox {
         });
      
         listener.gridUpdated();
+
         timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -97,7 +98,6 @@ public class CandyFrame extends VBox {
                 });
             }
         };
-
         timer.scheduleAtFixedRate(task, 0, 1000);
 
         addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -111,7 +111,6 @@ public class CandyFrame extends VBox {
                     System.out.println("Get second = " + newPoint);//"Get second = " + newPoint
 
                     game().tryMove((int) lastPoint.getX(), (int) lastPoint.getY(), (int) newPoint.getX(), (int) newPoint.getY());
-
                     lastPoint = null;
                 }
             }
