@@ -3,7 +3,6 @@ package game.frontend;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-
 import java.util.Optional;
 import javafx.stage.Stage;
 
@@ -21,7 +20,7 @@ public class AppMenu extends MenuBar {
         changeLevel.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Change level");
-            alert.setHeaderText("Change level");
+            alert.setHeaderText("Change Level");
             alert.setContentText("Are you sure you want to change the level?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
@@ -62,7 +61,7 @@ public class AppMenu extends MenuBar {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Game guide");
             alert.setHeaderText("Candy Crush 2.0: TPE Guide");
-            alert.setContentText("Level 1: Basic Mode\nThe very popular version of Candy Crush we all know and love. Combine sweets until you get the final score!\n\nLevel 2: Time's Up\nTime is running! Get the maximum score before it's too late. Combine the special candies to gain more time!\n\nLevel 3: Time Bombs\nThink wisely before you play, your movements are numbered! Try to get the final score and crush the bomb candies for more opportunities.");
+            alert.setContentText("Level 1: Basic Mode\nThe very popular version of Candy Crush we all know and love. With limited moves, combine sweets until you get the final score!\n\nLevel 2: Time's Up\nTime is running! Get the maximum score before it's too late. Combine the special candies to gain more time!\n\nLevel 3: Time Bombs\nThink wisely before you play, your movements are numbered! Try to get the final score and crush the bomb candies for more opportunities.");
             alert.showAndWait();
         });
 
@@ -74,7 +73,7 @@ public class AppMenu extends MenuBar {
             alert.setTitle("About");
             alert.setHeaderText("Candy Crush 2.0: TPE Credits");
             alert.setContentText("Cátedra POO 2019.\n" +
-                    "Implementación Original: Laura Zabaleta (POO 2013).\n" + "Actualización: Francisco Bernad, Camila Ponce y Luciana Diaz K.");
+                    "Implementación Original: Laura Zabaleta (POO 2013).\n" + "Actualización: Francisco Bernad, Camila Ponce y Luciana D. Kralj.");
             ImageView graphic=new ImageView("images/graphic.png");
             alert.setGraphic(graphic);
             alert.showAndWait();
