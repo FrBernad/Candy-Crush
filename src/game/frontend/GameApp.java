@@ -24,12 +24,11 @@ import javafx.stage.Stage;
 
 public class GameApp extends Application {
 
-    protected Stage primaryStage;
+    Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
     }
-
 
     @Override
     public void start(Stage primaryStage) {
@@ -55,14 +54,14 @@ public class GameApp extends Application {
         BackgroundImage myBI= new BackgroundImage(new Image("images/wallpaper.png",400,200,false,true), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
         HBox buttons = new HBox();
-        buttons.setPadding(new Insets(70, 70, 70, 70));
+        buttons.setPadding(new Insets(50, 50, 50, 50));
         Pane spacer1 = new Pane();
         spacer1.setMinSize(50, 1);
         Pane spacer2 = new Pane();
         spacer2.setMinSize(50, 1);
         buttons.getChildren().addAll(level1, spacer1, level2, spacer2, level3);
         root.getChildren().addAll(buttons);
-        primaryStage.setScene(new Scene(root, 400, 100));
+        primaryStage.setScene(new Scene(root, 390, 190));
         primaryStage.setResizable(false);
         primaryStage.show();
 
@@ -73,7 +72,7 @@ public class GameApp extends Application {
             @Override
             public void handle(ActionEvent event) {
                 CandyGame game = new CandyGame(levelClass);
-                CandyFrame frame = new CandyFrame(game);
+                CandyFrame frame = new CandyFrame(game,primaryStage);
                 Scene scene = new Scene(frame);
                 primaryStage.setResizable(false);
                 primaryStage.setScene(scene);

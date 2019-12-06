@@ -11,18 +11,25 @@ import game.backend.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class CandyFrame extends VBox {
 
@@ -35,10 +42,12 @@ public class CandyFrame extends VBox {
     private Point2D lastPoint;
     private CandyGame game;
     private Level gameLevel;
+    private Stage primaryStage;
 
-    public CandyFrame(CandyGame game) {
+    public CandyFrame(CandyGame game, Stage primaryStage) {
+        this.primaryStage = primaryStage;
         this.game = game;
-        getChildren().add(new AppMenu());
+        getChildren().add(new AppMenu(primaryStage));
         images = new ImageManager();
         boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE);
         getChildren().add(boardPanel);
@@ -48,7 +57,6 @@ public class CandyFrame extends VBox {
         getChildren().add(timePanel);
         game.initGame();
         gameLevel = (Level) game.getGrid();
-
         if (gameLevel.canUpdate()) {
             gameLevel.update();
         }
@@ -151,14 +159,23 @@ public class CandyFrame extends VBox {
 
     public void finishGame(String score, String message, Timer timer) {
         timer.cancel();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Candy Crush 2.0");
-        alert.setHeaderText(message);
-        alert.setContentText("Your score was: " + score);
-        ButtonType buttonTypeCancel = new ButtonType("Exit");
-        alert.getButtonTypes().setAll(buttonTypeCancel);
-        alert.showAndWait();
-        Platform.exit();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Game ended");
+        alert.setHeaderText("Choose one of the following options");
+        ImageView graphic=new ImageView("images/graphic.png");
+        alert.setGraphic(graphic);
+        ButtonType buttonTypeOne = new ButtonType("Back to menu");
+        ButtonType buttonTypeTwo = new ButtonType("Exit game");
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne) {
+            primaryStage.close();
+            Platform.runLater(() -> new GameApp().start(new Stage()));
+        } else if (result.get() == buttonTypeTwo) {
+            Platform.exit();
+        }
     }
 
 }

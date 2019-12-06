@@ -17,36 +17,27 @@ import javafx.stage.Stage;
 
 public class AppMenu extends MenuBar {
 
-    private EventHandler<ActionEvent> provider(Class<? extends Level> levelClass) {
-        return new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                CandyGame game = new CandyGame(levelClass);
-                CandyFrame frame = new CandyFrame(game);
-                Scene scene = new Scene(frame);
-                Stage stage=new Stage();
-                stage.setResizable(false);
-                stage.setScene(scene);
-                stage.show();
-            }
-        };
-    }
+    private Stage primaryStage;
 
-    public AppMenu() {
-
+    public AppMenu(Stage primaryStage) {
         // ARCHIVO ////////////////////////////////////////////////////////////////
         Menu file = new Menu("Archivo");
         // CHANGE LEVEL
-        Menu changeLevel = new Menu("Change level");
-        MenuItem lvl1 = new MenuItem("New level 1");
-        MenuItem lvl2 = new MenuItem("New level 2");
-        MenuItem lvl3 = new MenuItem("New level 3");
-
-        lvl1.setOnAction(provider(Level1.class));
-        lvl2.setOnAction(provider(Level2.class));
-        lvl3.setOnAction(provider(Level3.class));
-
-        changeLevel.getItems().addAll(lvl1, lvl2, lvl3);
+        MenuItem changeLevel = new MenuItem("Cambiar nivel");
+        changeLevel.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Cambiar de nivel");
+            alert.setHeaderText("Cambiar de nivel");
+            alert.setContentText("¿Está seguro que desea salir del nivel?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == ButtonType.OK) {
+                    Stage stage = new Stage();
+                    primaryStage.close();
+                    Platform.runLater(() -> new GameApp().start(stage));
+                }
+            }
+        });
 
         // EXIT
         MenuItem exitMenuItem = new MenuItem("Salir");

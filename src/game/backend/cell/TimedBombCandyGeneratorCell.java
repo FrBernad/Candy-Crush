@@ -6,7 +6,7 @@ import game.backend.level.Level3;
 
 public class TimedBombCandyGeneratorCell extends CandyGeneratorCell {
 
-    private final double THRESHOLD = 0.03;
+    private final double THRESHOLD = 0.05;
     private final int MAX_CANDIES = 10;
     private final int MAX_RANGE = 10;
     private final int MIN_RANGE = 5;
@@ -34,7 +34,6 @@ public class TimedBombCandyGeneratorCell extends CandyGeneratorCell {
                 return aux;
             }
         }
-
         return new Candy(CandyColor.values()[colour]);
     }
 
