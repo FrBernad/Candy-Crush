@@ -1,18 +1,8 @@
 package game.frontend;
 
-import game.backend.level.Level;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-
 import java.util.Optional;
-
-import game.backend.CandyGame;
-import game.backend.level.Level1;
-import game.backend.level.Level2;
-import game.backend.level.Level3;
 import javafx.stage.Stage;
 
 public class AppMenu extends MenuBar {
