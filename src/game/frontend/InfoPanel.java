@@ -1,13 +1,8 @@
 package game.frontend;
 
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
-
 import javafx.scene.control.Label;
-
 
 public class InfoPanel extends BorderPane {
 
