@@ -4,31 +4,20 @@ import game.backend.CandyGame;
 import game.backend.GameListener;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
-
 import game.backend.element.NumberedCandy;
-import game.backend.element.TimeCandy;
 import game.backend.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.util.*;
 
 public class CandyFrame extends VBox {
@@ -60,7 +49,6 @@ public class CandyFrame extends VBox {
         if (gameLevel.canUpdate()) {
             gameLevel.update();
         }
-
         GameListener listener;
         game.addGameListener(listener = new GameListener() {
             @Override
@@ -86,7 +74,6 @@ public class CandyFrame extends VBox {
                     frameTime = frameTime.add(frameGap);
                 }
 
-
                 timeLine.play();
             }
 
@@ -94,9 +81,10 @@ public class CandyFrame extends VBox {
             public void cellExplosion(Element e) {
                 //
             }
+            
         });
+     
         listener.gridUpdated();
-
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -111,7 +99,6 @@ public class CandyFrame extends VBox {
         };
 
         timer.scheduleAtFixedRate(task, 0, 1000);
-
 
         addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (lastPoint == null) {
@@ -159,16 +146,15 @@ public class CandyFrame extends VBox {
 
     public void finishGame(String score, String message, Timer timer) {
         timer.cancel();
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Game ended");
-        alert.setHeaderText("Choose one of the following options");
+        alert.setHeaderText(message + "\n" + "Your score was: " + score);
+        alert.setContentText("Choose one of the following options:");
         ImageView graphic=new ImageView("images/graphic.png");
         alert.setGraphic(graphic);
         ButtonType buttonTypeOne = new ButtonType("Back to menu");
         ButtonType buttonTypeTwo = new ButtonType("Exit game");
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
-
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne) {
             primaryStage.close();
