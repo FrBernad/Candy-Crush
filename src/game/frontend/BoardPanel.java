@@ -1,6 +1,5 @@
 package game.frontend;
 
-import game.backend.element.Candy;
 import game.backend.element.NumberedCandy;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
