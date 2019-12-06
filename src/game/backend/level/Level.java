@@ -4,11 +4,20 @@ import game.backend.cell.Cell;
 import game.backend.element.Wall;
 import java.lang.reflect.InvocationTargetException;
 
+// Se movió la mayor cantidad de comportamientos compartidos
+// a esta clase abstracta, con el contenido que previamente
+// se hallaba en Level1.
+
 public abstract class Level extends Grid {
 
-    protected String condition;
+	private int maxScore;
+	protected String condition;
     protected Cell wallCell;
     protected Cell generator;
+    
+    Level(int maxScore) {
+    	this.maxScore = maxScore;
+    }
 
     public void setGenerator(Class<? extends Cell> generator) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         this.generator = generator.getConstructor(Grid.class).newInstance(this);
@@ -24,6 +33,10 @@ public abstract class Level extends Grid {
         return condition;
     }
 
+    public String getMaxScore() {
+    	return String.valueOf(maxScore);
+    }
+    
     @Override
     protected void fillCells() {
 
