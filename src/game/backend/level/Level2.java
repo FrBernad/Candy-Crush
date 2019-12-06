@@ -11,22 +11,28 @@ import java.util.*;
 public class Level2 extends BonusLevel {
 
     private static long TIME_LEFT = 50;
-    private int REQUIRED_SCORE = 5000;
+    private static int REQUIRED_SCORE = 5000;
 
+    // El constructor guarda el score necesario para ganar en la clase ancestro "Level"
+    // para el posterior acceso del front a dicha información, así como la condición
+    // que estipula el comportamiento del nivel (en este caso, límite de tiempo).
     public Level2() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        super();
+        super(REQUIRED_SCORE);
         setGenerator(TimedCandyGeneratorCell.class);
         condition = "Time Left: ";
     }
 
+    // La clase padre "BonusLevel" tiene el método specialCandies(...) que guarda
+    // en una lista dichos caramelos encontrados.
     public void add(Candy candy) {
         specialCandies.add((TimeCandy) candy);
     }
 
-
+    // Gracias a este método puede llenarse la grilla, corroborando que no inicie sin
+    // caramelos especiales. Además, setea los mensajes que corresponden a dicho estado.
     @Override
-    public void update() { //cada vez q clickeo
-        System.out.println("VECTOR DE CANDIES BEFORE" + specialCandies);
+    public void update() {
+        // System.out.println("VECTOR DE CANDIES BEFORE" + specialCandies);
         checkCandies();
         if (firstPass) {
             firstPass = false;
@@ -34,9 +40,11 @@ public class Level2 extends BonusLevel {
             if (specialCandies.isEmpty())
                 ((TimedCandyGeneratorCell) generator).reset();
         }
-        System.out.println("VECTOR DE CANDIES AFTER" + specialCandies);
+        // System.out.println("VECTOR DE CANDIES AFTER" + specialCandies);
     }
 
+    // Itera sobre la lista de TimedBombCandies para verificar si se rompieron
+    // y si es así, sumar su valor al tiempo restante.
     private void checkCandies() {
         Iterator<NumberedCandy> it = specialCandies.iterator();
         while (it.hasNext()) {
@@ -55,7 +63,7 @@ public class Level2 extends BonusLevel {
         return new Level2State(TIME_LEFT, REQUIRED_SCORE);
     }
 
-
+    // Actualiza el estado del nivel actual mientras se ejecuta el juego.
     private class Level2State extends GameState {
 
         private long timeLeft;
@@ -102,6 +110,7 @@ public class Level2 extends BonusLevel {
             timeLeft -= MINUS_SECS;
         }
 
+        // Lo llama el reloj del frontend para actualizar los paneles de información.
         @Override
         public Map<String, String> getInfo() {
             Map<String, String> generalInfo = new HashMap<>();
@@ -117,4 +126,3 @@ public class Level2 extends BonusLevel {
     }
 
 }
-
