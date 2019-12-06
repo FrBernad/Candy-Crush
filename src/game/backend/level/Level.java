@@ -10,15 +10,11 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class Level extends Grid {
 
-	private int maxScore;
+	protected int maxScore;
 	protected String condition;
     protected Cell wallCell;
     protected Cell generator;
     
-    Level(int maxScore) {
-    	this.maxScore = maxScore;
-    }
-
     public void setGenerator(Class<? extends Cell> generator) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         this.generator = generator.getConstructor(Grid.class).newInstance(this);
     }

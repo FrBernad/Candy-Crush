@@ -20,12 +20,14 @@ public class AppMenu extends MenuBar {
         changeLevel.setOnAction(e -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Change level");
+            alert.setGraphic(new ImageView("images/graphic.png"));
             alert.setHeaderText("Change Level");
             alert.setContentText("Are you sure you want to change the level?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
                     Stage stage = new Stage();
+                    CandyFrame.timer.cancel();
                     primaryStage.close();
                     Platform.runLater(() -> new GameApp().start(stage));
                 }
@@ -59,6 +61,8 @@ public class AppMenu extends MenuBar {
         gameGuide.setGraphic(new ImageView("images/helpIcon.png"));
         gameGuide.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeight(400);
+            alert.setWidth(300);
             alert.setTitle("Game guide");
             alert.setHeaderText("Candy Crush 2.0: TPE Guide");
             alert.setContentText("Level 1: Basic Mode\nThe very popular version of Candy Crush we all know and love. With limited moves, combine sweets until you get the final score!\n\nLevel 2: Time's Up\nTime is running! Get the maximum score before it's too late. Combine the special candies to gain more time!\n\nLevel 3: Time Bombs\nThink wisely before you play, your movements are numbered! Try to get the final score and crush the bomb candies for more opportunities.");
@@ -70,6 +74,8 @@ public class AppMenu extends MenuBar {
         aboutMenuItem.setGraphic(new ImageView("images/aboutIcon.png"));
         aboutMenuItem.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeight(250);
+            alert.setWidth(300);
             alert.setTitle("About");
             alert.setHeaderText("Candy Crush 2.0: TPE Credits");
             alert.setContentText("Cátedra POO 2019.\n" +

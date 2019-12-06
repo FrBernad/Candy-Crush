@@ -32,6 +32,7 @@ public class CandyFrame extends VBox {
     private CandyGame game;
     private Level gameLevel;
     private Stage primaryStage;
+    static Timer timer;
 
     // Se añadieron paneles para mostrar la información de la jugada actual.
     public CandyFrame(CandyGame game, Stage primaryStage) {
@@ -53,7 +54,7 @@ public class CandyFrame extends VBox {
             @Override
             public void gridUpdated() {
                 Timeline timeLine = new Timeline();
-                Duration frameGap = Duration.millis(100);
+                Duration frameGap = Duration.millis(50);
                 Duration frameTime = Duration.ZERO;
                 for (int i = game().getSize() - 1; i >= 0; i--) {
                     for (int j = game().getSize() - 1; j >= 0; j--) {
@@ -84,7 +85,7 @@ public class CandyFrame extends VBox {
         });
      
         listener.gridUpdated();
-        Timer timer = new Timer();
+        timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -147,22 +148,22 @@ public class CandyFrame extends VBox {
     // Ventana que se abre cuando la jugada termina, ganándola o perdiéndola.
     // Permite volver al menú de selección de niveles o salir del juego.
     public void finishGame(String score, String message, Timer timer) {
-        timer.cancel();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        timer.cancel();
         alert.setTitle("Game ended");
         alert.setHeaderText(message + "\n" + "Your score was: " + score);
         alert.setContentText("Choose one of the following options:");
         ImageView graphic=new ImageView("images/graphic.png");
         alert.setGraphic(graphic);
-        ButtonType buttonTypeOne = new ButtonType("Back to menu");
-        ButtonType buttonTypeTwo = new ButtonType("Exit game");
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+        ButtonType backToMenuButton = new ButtonType("Back to menu");
+        ButtonType exitGameButton = new ButtonType("Exit game");
+        alert.getButtonTypes().setAll(backToMenuButton, exitGameButton);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne) {
+        if (result.get() == backToMenuButton) {
             primaryStage.close();
             Platform.runLater(() -> new GameApp().start(new Stage()));
-        } else if (result.get() == buttonTypeTwo) {
-            Platform.exit();
+        } else if (result.get() == exitGameButton) {
+            System.exit(0);
         }
     }
 }

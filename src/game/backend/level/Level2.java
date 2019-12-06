@@ -17,7 +17,7 @@ public class Level2 extends BonusLevel {
     // para el posterior acceso del front a dicha información, así como la condición
     // que estipula el comportamiento del nivel (en este caso, límite de tiempo).
     public Level2() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        super(REQUIRED_SCORE);
+        maxScore=REQUIRED_SCORE;
         setGenerator(TimedCandyGeneratorCell.class);
         condition = "Time Left: ";
     }
@@ -32,7 +32,6 @@ public class Level2 extends BonusLevel {
     // caramelos especiales. Además, setea los mensajes que corresponden a dicho estado.
     @Override
     public void update() {
-        // System.out.println("VECTOR DE CANDIES BEFORE" + specialCandies);
         checkCandies();
         if (firstPass) {
             firstPass = false;
@@ -40,7 +39,6 @@ public class Level2 extends BonusLevel {
             if (specialCandies.isEmpty())
                 ((TimedCandyGeneratorCell) generator).reset();
         }
-        // System.out.println("VECTOR DE CANDIES AFTER" + specialCandies);
     }
 
     // Itera sobre la lista de TimedBombCandies para verificar si se rompieron

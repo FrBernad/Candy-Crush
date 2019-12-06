@@ -7,10 +7,6 @@ import java.util.List;
 
 public abstract class BonusLevel extends Level {
 
-    BonusLevel(int requiredScore) {
-		super(requiredScore);
-	}
-
 	protected boolean started = false;
     protected boolean firstPass = true;
     protected List<NumberedCandy> specialCandies = new ArrayList<>();

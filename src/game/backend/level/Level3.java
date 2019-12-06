@@ -24,7 +24,7 @@ public class Level3 extends BonusLevel {
     // para el posterior acceso del front a dicha información, así como la condición
     // que estipula el comportamiento del nivel (en este caso, límite de movimientos).
     public Level3() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        super(REQUIRED_SCORE);
+        maxScore=REQUIRED_SCORE;
         setGenerator(TimedBombCandyGeneratorCell.class);
         condition = CONDITION_TAG;
     }
