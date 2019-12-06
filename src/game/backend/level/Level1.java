@@ -11,7 +11,7 @@ public class Level1 extends Level {
     private static int MAX_MOVES = 20;
 
     public Level1() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        super();
+        super(REQUIRED_SCORE);
         setGenerator(CandyGeneratorCell.class);
         condition = "";
     }
